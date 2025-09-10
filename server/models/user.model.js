@@ -18,15 +18,15 @@ const userSchema = new mongoose.Schema({
     },
     picture: {
         type: String,
-        required: [true, "Please upload a profile picture (image URL)"],
+       required: false,
     },
     experience: {
         type: Number,
-        required: [true, "How long have you been trading stonks?"],
+        required: false,
     },
     quote: {
         type: String,
-        required: [true, "Please share something inspirational!"],
+        required: false,
     },
 }, { timestamps: true })
 

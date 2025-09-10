@@ -38,6 +38,7 @@ import { Avatar, AvatarImage } from "../../components/ui/avatar";
 import { sendMessage } from "../../Redux/Chat/Action";
 import { ScrollArea } from "../../components/ui/scroll-area";
 import SpinnerBackdrop from "../../components/custome/SpinnerBackdrop";
+import CryptoData from "../../components/custome/CryptoData";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -51,18 +52,19 @@ const Home = () => {
   }, [page]);
 
   useEffect(() => {
-    dispatch(fetchCoinDetails({
-      coinId: "bitcoin",
-      jwt: auth.jwt || localStorage.getItem("jwt"),
-    }))
-    
+    dispatch(
+      fetchCoinDetails({
+        coinId: "bitcoin",
+        jwt: auth.jwt || localStorage.getItem("jwt"),
+      })
+    );
   }, []);
 
   useEffect(() => {
     if (category == "top50") {
       dispatch(getTop50CoinList());
-    }else if( category == "trading"){
-      dispatch(fetchTreadingCoinList())
+    } else if (category == "trading") {
+      dispatch(fetchTreadingCoinList());
     }
   }, [category]);
 
@@ -99,8 +101,6 @@ const Home = () => {
     }
   }, [chatBot.messages]);
 
-  
-
   if (coin.loading) {
     return <SpinnerBackdrop />;
   }
@@ -124,13 +124,22 @@ const Home = () => {
             >
               Top 50
             </Button>
-            
-           
+            <Button
+              variant={category == "trading" ? "default" : "outline"}
+              onClick={() => setCategory("trading")}
+              className="rounded-full"
+            >
+              Live Trading
+            </Button>
           </div>
-          <AssetTable
-            category={category}
-            coins={category == "all" ? coin.coinList : coin.top50}
-          />
+          {category === "trading" ? (
+            <CryptoData />
+          ) : (
+            <AssetTable
+              category={category}
+              coins={category == "all" ? coin.coinList : coin.top50}
+            />
+          )}
           {category == "all" && (
             <Pagination className="border-t py-3">
               <PaginationContent>
@@ -245,19 +254,13 @@ const Home = () => {
             </div>
 
             <div className="h-[76%]  flex flex-col overflow-y-auto  gap-5 px-5 py-2 scroll-container">
-            <div
-                 
-                  
-                  className={`${ "self-start"
-                  } pb-5 w-auto`}
-                >
-                  <div className="justify-end self-end px-5 py-2 rounded-md bg-slate-800 w-auto">
-                      {`hi, ${auth.user?.fullName}`}
-                      <p>you can ask crypto related any question</p>
-                      <p>like, price, market cap extra...</p>
-                    </div>
-                  
+              <div className={`${"self-start"} pb-5 w-auto`}>
+                <div className="justify-end self-end px-5 py-2 rounded-md bg-slate-800 w-auto">
+                  {`hi, ${auth.user?.fullName}`}
+                  <p>you can ask crypto related any question</p>
+                  <p>like, price, market cap extra...</p>
                 </div>
+              </div>
               {chatBot.messages.map((item, index) => (
                 <div
                   ref={chatContainerRef}
@@ -266,7 +269,6 @@ const Home = () => {
                     item.role == "user" ? "self-end" : "self-start"
                   } pb-5 w-auto`}
                 >
-                 
                   {item.role == "user" ? (
                     <div className="justify-end self-end px-5 py-2 rounded-full bg-slate-800 w-auto">
                       {item.prompt}
@@ -298,19 +300,15 @@ const Home = () => {
           onClick={handleBotRelease}
           className="relative w-[10rem] cursor-pointer group"
         >
-          <Button  className="w-full h-[3rem] gap-2 items-center">
-            
+          <Button className="w-full h-[3rem] gap-2 items-center">
             <MessageCircle
-            fill=""
-            className="fill-[#1e293b] -rotate-[90deg] stroke-none group-hover:fill-[#1a1a1a] "
-            size={30}
-          />
-          
-          <span className=" text-2xl">
-            Chat Bot
-          </span>
+              fill=""
+              className="fill-[#1e293b] -rotate-[90deg] stroke-none group-hover:fill-[#1a1a1a] "
+              size={30}
+            />
+
+            <span className=" text-2xl">Chat Bot</span>
           </Button>
-          
         </div>
       </section>
     </div>

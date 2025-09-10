@@ -17,4 +17,9 @@ require("./config/mongoose.config");
 require("./routes/user.routes")(app);
 require("./routes/stonk.routes")(app);
 
+const cryptoRoutes = require('./routes/crypto.routes');
+app.use('/api/crypto', cryptoRoutes);
+
+console.log(" CCXT Integration routes loaded at /api/crypto");
+
 app.listen(8000, () => console.log("Connected to port 8000"));

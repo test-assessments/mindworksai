@@ -5,7 +5,7 @@ import api, { API_BASE_URL } from "../../Api/api";
 export const register = (userData) => async (dispatch) => {
   dispatch({ type: actionTypes.REGISTER_REQUEST });
   try {
-    const response = await axios.post(`${API_BASE_URL}/auth/signup`, userData);
+const response = await axios.post(`${API_BASE_URL}/api/auth/register`, userData);
     const user = response.data;
     if (user.jwt) localStorage.setItem("jwt", user.jwt);
     console.log("registerr :- ", user);
@@ -23,7 +23,7 @@ export const register = (userData) => async (dispatch) => {
 export const login = (userData) => async (dispatch) => {
   dispatch({ type: actionTypes.LOGIN_REQUEST });
   try {
-    const response = await axios.post(`${API_BASE_URL}/auth/signin`, userData);
+const response = await axios.post(`${API_BASE_URL}/api/auth/login`, userData);
     const user = response.data;
     if (user.twoFactorAuthEnabled) {
       userData.navigate(`/two-factor-auth/${user.session}`);

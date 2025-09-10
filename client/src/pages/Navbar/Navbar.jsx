@@ -85,7 +85,7 @@ const Navbar = () => {
             {!auth.user ? (
               <AvatarIcon className=" h-8 w-8" />
             ) : (
-              <AvatarFallback>{auth.user?.fullName[0].toUpperCase()}</AvatarFallback>
+             <AvatarFallback>{auth.user?.username[0].toUpperCase()}</AvatarFallback>
             )}
           </Avatar>
         </div>

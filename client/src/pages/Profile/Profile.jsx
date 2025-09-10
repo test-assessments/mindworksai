@@ -41,8 +41,8 @@ const Profile = () => {
                   <p className="text-gray-500">{auth.user?.email} </p>
                 </div>
                 <div className="flex">
-                  <p className="w-[9rem]">Full Name : </p>
-                  <p className="text-gray-500">{""} </p>
+                  <p className="w-[9rem]">Username : </p>
+                 <p className="text-gray-500">{auth.user?.username} </p>
                 </div>
                 <div className="flex">
                   <p className="w-[9rem]">Date Of Birth : </p>

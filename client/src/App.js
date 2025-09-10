@@ -22,6 +22,7 @@ import WithdrawalAdmin from "./Admin/Withdrawal/WithdrawalAdmin";
 import Activity from "./pages/Activity/Activity";
 import SearchCoin from "./pages/Search/Search";
 import { shouldShowNavbar } from "./Util/shouldShowNavbar";
+import CryptoData from "./components/custome/CryptoData";
 
 
 const routes = [
@@ -36,6 +37,7 @@ const routes = [
   { path: "/watchlist", role: "ROLE_USER" },
   { path: "/profile", role: "ROLE_USER" },
   { path: "/search", role: "ROLE_USER" },
+  { path: "/crypto", role: "ROLE_USER" },
   { path: "/admin/withdrawal", role: "ROLE_ADMIN" }
 ];
 
@@ -57,7 +59,7 @@ dispatch(getUser(localStorage.getItem("jwt")))
          {showNavbar && <Navbar />}
           <Routes>
             <Route element={<Home />} path="/" />
-            
+             <Route element={<CryptoData />} path="/crypto" />
             <Route element={<Portfolio />} path="/portfolio" />
             <Route element={<Activity />} path="/activity" />
             <Route element={<Wallet />} path="/wallet" />
